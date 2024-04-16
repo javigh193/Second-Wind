@@ -2,6 +2,7 @@ package com.secondwind.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,10 @@ public class SecurityConf {
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(authRequest ->
 					authRequest
-						.anyRequest().permitAll()
+						.requestMatchers("/api/v1/auth/**").permitAll()
+						.requestMatchers(HttpMethod.GET).hasRole("USER")
+						.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+						.anyRequest().authenticated()
 				)
 				.sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider)
