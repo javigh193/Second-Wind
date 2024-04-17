@@ -23,14 +23,6 @@ public class ApplicationConf {
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	
-//	private final UserRepository userRepository;
-	
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		return username -> userRepository.findByEmail(username)
-//				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-//	}
-	
 	@Bean
 	public RoleHierarchy roleHierarchy() {
 	    RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -39,13 +31,6 @@ public class ApplicationConf {
 	    roleHierarchy.setHierarchy(hierarchy);
 	    return roleHierarchy;
 	}
-	
-//	@Bean
-//	public DefaultWebSecurityExpressionHandler customWebSecurityExpressionHandler() {
-//	    DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-//	    expressionHandler.setRoleHierarchy(roleHierarchy());
-//	    return expressionHandler;
-//	}
 	
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration conf) throws Exception {
