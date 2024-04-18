@@ -30,7 +30,6 @@ public class AuthenticationService {
 	private final AuthenticationManager authenticationManager;
 	
 	public AuthenticationResponse register(RegisterRequest request) throws NotFoundException {
-		
 		var optDefaultRoles = roleRepository.findByName("ROLE_USER");
 		List<Role> defaultRoles;
 		if (optDefaultRoles.isPresent()) {
@@ -49,7 +48,7 @@ public class AuthenticationService {
 			.enabled(true)
 			.build();
 		
-		User savedUser = userRepository.save(user);
+		userRepository.save(user);
 		
 		var jwtToken = jwtService.generateToken(user);
 		

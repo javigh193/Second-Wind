@@ -1,0 +1,41 @@
+<section>
+    <div class="container col-md-4 py-4 my-2">
+        <form [formGroup]="loginForm">
+            <p class="text-danger">{{loginError}}</p>
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">Correo electrónico</label>
+                <input formControlName="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                @if (email.invalid && (email.dirty || email.touched)) {
+                    <div class="text-danger">
+                        @if (email.errors?.['required']) {
+                            <div>Se requiere el correo electrónico del usuario.</div>
+                        }
+                        @if (email.errors?.['email']) {
+                            <div>Formato no válido.</div>
+                        }
+                    </div>
+                }
+                <div id="emailHelp" class="form-text">No compartiremos tu dirección de correo con nadie.</div>
+            </div>
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">Contraseña</label>
+                <input formControlName="password" class="form-control" id="passwordInput" type="password">
+                @if (password.invalid && (password.dirty || password.touched)) {
+                    <div class="text-danger">
+                        @if (password.errors?.['required']) {
+                            <div>Se requiere una contraseña.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="d-flex flex-column justify-contents-center align-items-center">
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Mantenerse conectado</label>
+                </div>
+                <button type="submit" class="btn btn-primary fit-content" (click)="login()">Iniciar sesión</button>
+                <a class="pt-2" routerLink="/registro">Registrarse</a>
+            </div>
+        </form>
+    </div>
+</section>

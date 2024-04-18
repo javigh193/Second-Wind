@@ -1,0 +1,69 @@
+<section>
+    <div class="container col-md-4 py-4 my-2">
+        <form [formGroup]="registerForm">
+            <p class="text-danger">{{registerError}}</p>
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">Nombre de usuario</label>
+                <input formControlName="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                @if (email.invalid && (email.dirty || email.touched)) {
+                    <div class="text-danger">
+                        @if (email.errors?.['required']) {
+                            <div>Se requiere un correo electrónico del usuario.</div>
+                        }
+                        @if (email.errors?.['email']) {
+                            <div>Formato no válido.</div>
+                        }
+                    </div>
+                }
+                <div id="emailHelp" class="form-text">No compartiremos tu dirección de correo con nadie.</div>
+            </div>
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">Contraseña</label>
+                <input formControlName="password" class="form-control" id="passwordInput" type="password">
+                @if (password.invalid && (password.dirty || password.touched)) {
+                    <div class="text-danger">
+                        @if (password.errors?.['required']) {
+                            <div>Se requiere una contraseña.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="firstnameInput" class="form-label">Nombre</label>
+                <input formControlName="firstname" class="form-control" id="firstnameInput" type="text">
+                @if (firstname.invalid && (firstname.dirty || firstname.touched)) {
+                    <div class="text-danger">
+                        @if (firstname.errors?.['required']) {
+                            <div>Se requiere un firstname.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="lastnameInput" class="form-label">Apellido</label>
+                <input formControlName="lastname" class="form-control" id="lastnameInput" type="text">
+                @if (password.invalid && (password.dirty || password.touched)) {
+                    <div class="text-danger">
+                        @if (lastname.errors?.['required']) {
+                            <div>Se requiere un lastname.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="dniInput" class="form-label">Dni</label>
+                <input formControlName="dni" class="form-control" id="dniInput" type="text">
+                @if (dni.invalid && (dni.dirty || dni.touched)) {
+                    <div class="text-danger">
+                        @if (dni.errors?.['required']) {
+                            <div>Se requiere un dni.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="d-flex flex-column justify-contents-center align-items-center">
+                <button type="submit" class="btn btn-primary fit-content" (click)="register()">Registrarse e iniciar sesión</button>
+            </div>
+        </form>
+    </div>
+</section>

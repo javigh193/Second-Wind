@@ -13,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -83,6 +84,12 @@ public class User extends BaseEntity implements UserDetails {
 		inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName="id")
 	)
 	private List<Role> roles;
+	
+	@OneToMany(mappedBy="buyer")
+	private List<Order> orders;
+	
+	@OneToMany(mappedBy="seller")
+	private List<Product> products;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,0 +1,22 @@
+.save-fav:hover {
+    background-color: rgba(7, 197, 255, 0.25);
+}
+
+.save-fav {
+    border-radius: 50%;
+    padding: 0.3rem;
+}
+
+.custom-shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0 , 0, 0.15);
+}
+
+.custom-shadow:hover {
+    box-shadow: 0 0.5rem 1rem rgba(255,70,16, 0.5); 
+}
+
+.cat-icon {
+    font-size: 1.4rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}

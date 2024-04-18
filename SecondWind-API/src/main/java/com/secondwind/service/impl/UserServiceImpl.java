@@ -118,5 +118,4 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, Long, User, UserCo
 					.body("No hay registros del tipo solicitado");
 		}
 	}
-
 }

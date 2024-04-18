@@ -1,0 +1,26 @@
+
+<nav class="navbar p-2 px-4 ms-2 mt-3">
+    <a class="navbar-brand" routerLink="/inicio"  style="font-size: 1.4rem; color: orangered; font-style: italic; font-weight: 500;">SECOND WIND</a>
+    <form class="d-flex justify-content-end align-items-center">
+      <i class="fa-regular fa-heart me-3" style="font-size: 1.4rem; color: orangered;"></i>
+      <i class="fa-regular fa-message me-3" style="font-size: 1.4rem; color: darkslategray;"></i>   
+      @if (userAuthorities.includes("ROLE_ADMIN")) {
+          <a routerLink="/dasboard-admin">
+            <button class="btn btn-warning me-2" type="button">Admin</button>
+          </a>
+      } @else {
+        <a routerLink="/crear-producto">
+          <button class="btn btn-warning me-2" type="button">Publicar</button>
+        </a>
+      }
+      @if (userLoginOn) {
+        <a routerLink="/inicio" (click)="logout()">
+            <button class="btn btn-light" type="button">Cerrar sesión</button>
+        </a>
+      } @else {
+        <a routerLink="/iniciar-sesion">
+            <button class="btn btn-light" type="button">Iniciar sesión</button>
+        </a>
+      }
+    </form>
+  </nav>

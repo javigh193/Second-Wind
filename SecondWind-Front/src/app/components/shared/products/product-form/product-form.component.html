@@ -1,0 +1,43 @@
+<section>
+    <div class="container col-md-4 py-4 my-2">
+        <form [formGroup]="productForm">
+            <p class="text-danger">{{creationError}}</p>
+            <div class="mb-3">
+                <label for="titleInput" class="form-label">Título del producto</label>
+                <input formControlName="title" class="form-control" id="titleInput" type="text" aria-describedby="titleHelp">
+                @if (title.invalid && (title.dirty || title.touched)) {
+                    <div class="text-danger">
+                        @if (title.errors?.['required']) {
+                            <div>Se requiere un título para el producto.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="descriptionInput" class="form-label">Descripción del producto</label>
+                <input formControlName="description" class="form-control" id="descriptionInput" type="text">
+                @if (description.invalid && (description.dirty || description.touched)) {
+                    <div class="text-danger">
+                        @if (description.errors?.['required']) {
+                            <div>Se requiere una descripción del producto.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="mb-3">
+                <label for="priceInput" class="form-label">Precio</label>
+                <input formControlName="price" class="form-control" id="priceInput" type="number">
+                @if (price.invalid && (price.dirty || price.touched)) {
+                    <div class="text-danger">
+                        @if (price.errors?.['required']) {
+                            <div>Se requiere un precio para el producto.</div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="d-flex flex-column justify-contents-center align-items-center mt-4">
+                <button type="submit" class="btn btn-primary fit-content" (click)="createProduct()">Crear anuncio</button>
+            </div>
+        </form>
+    </div>
+</section>

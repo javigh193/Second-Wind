@@ -30,11 +30,12 @@ public class SecurityConf {
 				.authorizeHttpRequests(authRequest ->
 					authRequest
 						.requestMatchers("/api/v1/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET).hasRole("USER")
-						.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-						.requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
-						.requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-						.requestMatchers(HttpMethod.PATCH).hasRole("ADMIN")
+						.requestMatchers("api/v1/products/forsale").permitAll()
+//						.requestMatchers(HttpMethod.GET).hasRole("USER")
+//						.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.POST).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.PATCH).hasRole("ADMIN")
 						.anyRequest().authenticated()
 				)
 				.sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
