@@ -15,6 +15,9 @@ import com.secondwind.entity.Product;
 import com.secondwind.entity.ProductStatus;
 import com.secondwind.service.impl.ProductServiceImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -24,6 +27,11 @@ import jakarta.validation.constraints.Positive;
 public class ProductController 
 	extends BaseController<ProductDTO, Product, ProductConverter, ProductServiceImpl> {
 	
+	@Operation(summary = "Get the products available for sale", description = "Returns all the products with the state 'ONSALE'")
+	@ApiResponses(value = {
+	        @ApiResponse(responseCode = "200", description = "Successfully retrieved"), 
+	        @ApiResponse(responseCode = "404", description = "Not found - There where no products available for sale")
+	    })
 	@GetMapping("/forsale")
 	public ResponseEntity<?>
 		getAllForSale(){

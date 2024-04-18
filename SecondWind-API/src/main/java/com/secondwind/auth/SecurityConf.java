@@ -31,6 +31,8 @@ public class SecurityConf {
 					authRequest
 						.requestMatchers("/api/v1/auth/**").permitAll()
 						.requestMatchers("api/v1/products/forsale").permitAll()
+						.requestMatchers("/v3/api-docs/**").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll()
 //						.requestMatchers(HttpMethod.GET).hasRole("USER")
 //						.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //						.requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
