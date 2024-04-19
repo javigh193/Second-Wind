@@ -22,5 +22,5 @@ public class PrivilegeServiceImpl extends BaseServiceImpl<PrivilegeDTO, Long, Pr
 	public PrivilegeServiceImpl(BaseRepository<Privilege, Long> baseRepository, BaseConverter<PrivilegeDTO, Privilege> baseConverter) {
 		super(baseRepository, baseConverter);
 	}
-
+	
 }

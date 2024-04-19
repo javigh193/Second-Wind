@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.secondwind.dto.RoleDTO;
 import com.secondwind.dto.converter.BaseConverter;
 import com.secondwind.dto.converter.RoleConverter;
+import com.secondwind.entity.Privilege;
 import com.secondwind.entity.Role;
 import com.secondwind.repository.BaseRepository;
+import com.secondwind.repository.PrivilegeRepository;
 import com.secondwind.repository.RoleRepository;
 
 @Service
@@ -19,6 +21,9 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Long, Role, RoleCo
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PrivilegeRepository privilegeRepository;
 	
 	@Autowired
 	private RoleConverter roleConverter;
@@ -36,8 +41,52 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Long, Role, RoleCo
 		} else {
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
-					.body("No register was found");	
+					.body("There where no registers for that entity");	
 		}
 	}
+	
+	public ResponseEntity<?> addPrivilege(Long privilegeId, Long roleId) {
+		Optional<Privilege> optPrivilege = privilegeRepository.findById(privilegeId);
+		if (optPrivilege.isPresent()) {
+			Optional<Role> optRole = roleRepository.findById(roleId);
+			if (optRole.isPresent()) {
+				Privilege privilege = optPrivilege.get();
+				Role role = optRole.get();
+				if (!role.getPrivileges().contains(privilege)) {
+					role.getPrivileges().add(privilege);
+					roleRepository.save(role);
+				}
+			}
+			
+			return ResponseEntity
+					.status(HttpStatus.CREATED)
+					.body("Privilegio concedido con éxito");
+		} else {
+			return ResponseEntity
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for that entity");
+		}
+	}
+	
+	public ResponseEntity<?> removePrivilege(Long roleId, Long privilegeId) {
+		Optional<Privilege> optPrivilege = privilegeRepository.findById(privilegeId);
+		if (optPrivilege.isPresent()) {
+			Optional<Role> optRole = roleRepository.findById(roleId);
+			if (optRole.isPresent()) {
+				Privilege privilege = optPrivilege.get();
+				Role role = optRole.get();
+				role.getPrivileges().remove(privilege);
+				roleRepository.save(role);
+			}
+			
+			return ResponseEntity
+					.status(HttpStatus.CREATED)
+					.body("Privilegio revocado con éxito");
+			} else {
+				return ResponseEntity
+						.status(HttpStatus.NOT_FOUND)
+						.body("There where no registers for that entity");
+			}
+		}
 
 }

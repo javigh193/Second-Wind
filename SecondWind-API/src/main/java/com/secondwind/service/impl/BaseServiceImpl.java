@@ -39,7 +39,7 @@ public abstract class BaseServiceImpl<DTO extends BaseDTO, ID extends Serializab
 		} catch (Exception e) {
 			return ResponseEntity
 					.status(HttpStatus.BAD_REQUEST)
-					.body(e.getMessage());
+					.body("Something about the request was wrong. Please, make sure that everything conforms with the documentation for this operation");
 		}		
 	}
 	
@@ -48,8 +48,8 @@ public abstract class BaseServiceImpl<DTO extends BaseDTO, ID extends Serializab
 		List<E> entities= baseRepository.findAll();
 		if (entities.isEmpty()) {
 			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("No hay registros del tipo solicitado");	
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for that entity");	
 		} else {
 			List<DTO> dtos = new ArrayList<>();
 			for (E entity : entities) {
@@ -73,7 +73,7 @@ public abstract class BaseServiceImpl<DTO extends BaseDTO, ID extends Serializab
 		} else {
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
-					.body("No register was found");	
+					.body("There where no registers for that entity");	
 		}
 	}
 	
@@ -84,12 +84,12 @@ public abstract class BaseServiceImpl<DTO extends BaseDTO, ID extends Serializab
 			E entity = optE.get();
 			entity = baseRepository.save(baseConverter.dtoToEntity(dto, entity));
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body(baseConverter.entityToDTO(entity));
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("No hay registros del tipo solicitado");
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for that entity");
 		}
 	}
 	

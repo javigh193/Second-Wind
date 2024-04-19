@@ -1,0 +1,14 @@
+<section>
+    <div class="container col-lg-5 col-10 d-flex flex-column justify-contents-center align-items-center fw-bold mt-3">
+        @for (message of messages; track message) {
+        <div class="p-2 my-2 w-100 bg-warning ">
+            <p (click)="closeMessage($index)">
+                <a href="javascript:void(0);" class="text-black">
+                    <i class="fa-solid fa-xmark float-end"></i>
+                </a>
+            </p>
+            <p>{{ message }}</p>
+        </div>
+        }  
+    </div>
+</section>

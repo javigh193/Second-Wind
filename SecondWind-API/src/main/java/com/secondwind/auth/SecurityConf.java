@@ -2,6 +2,7 @@ package com.secondwind.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,16 @@ public class SecurityConf {
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(authRequest ->
 					authRequest
-						.anyRequest().permitAll()
+						.requestMatchers("/api/v1/auth/**").permitAll()
+						.requestMatchers("api/v1/products/forsale").permitAll()
+						.requestMatchers("/v3/api-docs/**").permitAll()
+						.requestMatchers("/swagger-ui/**").permitAll()
+//						.requestMatchers(HttpMethod.GET).hasRole("USER")
+//						.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.POST).hasRole("ADMIN")
+//						.requestMatchers(HttpMethod.PATCH).hasRole("ADMIN")
+						.anyRequest().authenticated()
 				)
 				.sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider)

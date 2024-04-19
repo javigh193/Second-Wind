@@ -16,6 +16,8 @@ public class UserConverter extends BaseConverterImpl<UserDTO, User> {
 		user.setFirstName(userDTO.getFirstName());
 		user.setLastName(userDTO.getLastName());
 		user.setDni(userDTO.getDni());
+		//users are created enabled by default
+		user.setEnabled(true);
 		return user;	
 	}
 	
