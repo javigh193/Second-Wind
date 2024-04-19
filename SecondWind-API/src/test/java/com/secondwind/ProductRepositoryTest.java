@@ -10,8 +10,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.secondwind.entity.Product;
@@ -23,7 +23,7 @@ import com.secondwind.repository.UserRepository;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace=Replace.NONE)
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 @TestMethodOrder(OrderAnnotation.class)
 class ProductRepositoryTest {
 	
@@ -80,7 +80,20 @@ class ProductRepositoryTest {
 	void testUpdateById() {
 		Optional<Product> optProd = productRepository.findById((long)4);
 		assertTrue(optProd.isPresent());
-		
+		Product prod = optProd.get();
+		var oldTitle = prod.getTitle();
+		var newTitle = oldTitle + "difference";
+		prod.setTitle(newTitle);
+		Product newProd = productRepository.save(prod);
+		assertEquals(newProd.getTitle(), newTitle);
 	}
-	
+
+	@Test
+	@Order(5)
+	void testFindByStatus() {
+		List<Product> products = productRepository.findByStatus(ProductStatus.ONSALE);
+		assertFalse(products.isEmpty());
+		products = productRepository.findByStatus(ProductStatus.REFUNDED);
+		assertTrue(products.isEmpty());
+	}
 }

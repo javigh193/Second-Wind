@@ -15,12 +15,14 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 @Table(name="product")
 public class Product extends BaseEntity {
@@ -49,7 +51,6 @@ public class Product extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name="fk_usuario")
 	private User seller;
-	
 }
 	
 	
