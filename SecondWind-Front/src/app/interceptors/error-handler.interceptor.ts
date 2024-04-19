@@ -13,7 +13,7 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
         if (err.status === 401) {
           sessionStorage.removeItem('token');
           console.error('Unauthorized request:', err);
-          router.navigateByUrl('/iniciar-sesion')
+          router.navigateByUrl('/iniciar-sesion');
         } else if (err.status === 403) {
           sessionStorage.removeItem('token');
           console.error('Forbidden request:', err);
@@ -26,6 +26,6 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
       }
       return throwError(() => err); 
     })
-  );;
+  );
 };
 

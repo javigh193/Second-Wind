@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { Product } from '../../components/shared/products/product';
 import { environment } from '../../../environments/environment.development';
 import { ProductCreateRequest } from '../../components/shared/products/product-form/productCreateRequest';
+import { Product } from '../../components/shared/products/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${environment.urlLocalApi}/products/forsale`);
+    return this.http.get<Product[]>((`${environment.urlLocalApi}/products/forsale`));
   }
 
   createProduct(data: ProductCreateRequest): Observable<any> {

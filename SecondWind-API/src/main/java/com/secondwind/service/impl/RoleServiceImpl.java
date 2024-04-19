@@ -12,7 +12,6 @@ import com.secondwind.dto.converter.BaseConverter;
 import com.secondwind.dto.converter.RoleConverter;
 import com.secondwind.entity.Privilege;
 import com.secondwind.entity.Role;
-import com.secondwind.entity.User;
 import com.secondwind.repository.BaseRepository;
 import com.secondwind.repository.PrivilegeRepository;
 import com.secondwind.repository.RoleRepository;
@@ -42,7 +41,7 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Long, Role, RoleCo
 		} else {
 			return ResponseEntity
 					.status(HttpStatus.NOT_FOUND)
-					.body("No register was found");	
+					.body("There where no registers for that entity");	
 		}
 	}
 	
@@ -60,12 +59,12 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Long, Role, RoleCo
 			}
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Privilegio concedido con éxito");
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("No hay registros del tipo solicitado");
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for that entity");
 		}
 	}
 	
@@ -81,12 +80,12 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, Long, Role, RoleCo
 			}
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Privilegio revocado con éxito");
 			} else {
 				return ResponseEntity
-						.status(HttpStatus.OK)
-						.body("No hay registros del tipo solicitado");
+						.status(HttpStatus.NOT_FOUND)
+						.body("There where no registers for that entity");
 			}
 		}
 

@@ -2,21 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from './product';
 import { ProductService } from '../../../services/product/product.service';
 import { EMPTY } from 'rxjs/internal/observable/empty';
-import { CurrencyPipe, DatePipe, NgOptimizedImage, SlicePipe, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DatePipe, NgOptimizedImage, SlicePipe, TitleCasePipe } from '@angular/common';
 import { JwtService } from '../../../services/jwt/jwt.service';
 import { OrderService } from '../../../services/order/order.service';
 import { OrderRequest } from '../orders/orderRequest';
+import { Observable, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [NgOptimizedImage, TitleCasePipe, CurrencyPipe, SlicePipe, DatePipe],
+  imports: [NgOptimizedImage, TitleCasePipe, CurrencyPipe, SlicePipe, DatePipe, AsyncPipe],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
 
-    products: Product[] = [];
+    public products$!: Observable<Product[]>;
     public errorMessage!: string;
 
     constructor(
@@ -26,20 +27,7 @@ export class ProductsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-      this.productService.getProducts().subscribe(
-        {
-          next: (response) => {
-            this.products = response;
-          },
-
-          error: (error) => {
-            this.errorMessage = error;
-            return EMPTY;
-          },
-          
-          complete: () => {}
-        }
-      );
+      this.loadProducts();
     }
 
     buy(productId: number) {
@@ -50,6 +38,7 @@ export class ProductsComponent implements OnInit {
         {
           next: (response) => {
             console.log(response)
+            this.loadProducts();
           },
           error: (error) => {
             console.log(error);
@@ -59,5 +48,11 @@ export class ProductsComponent implements OnInit {
       );
     }
 
-    
+  loadProducts() {
+    this.products$ = this.productService.getProducts()
+      .pipe(catchError( (error: string) => {
+        this.errorMessage = error;
+        return EMPTY;
+    }))
+  }
 }

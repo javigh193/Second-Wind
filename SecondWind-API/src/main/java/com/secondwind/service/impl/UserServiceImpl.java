@@ -49,12 +49,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, Long, User, UserCo
 			}
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Role añadido con éxito");
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("No hay registros del tipo solicitado");
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for the user or the role");
 		}
 	}
 	
@@ -70,12 +70,12 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, Long, User, UserCo
 			}
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Role eliminado con éxito");
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("No hay registros del tipo solicitado");
+					.status(HttpStatus.NOT_FOUND)
+					.body("There where no registers for the user or the role");
 		}
 	}
 	
@@ -93,11 +93,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, Long, User, UserCo
 			}
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Dirección actualizada con éxito");
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.NOT_FOUND)
 					.body("No hay registros del tipo solicitado");
 		}
 	}
@@ -110,11 +110,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserDTO, Long, User, UserCo
 			userRepository.save(user);
 			
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.CREATED)
 					.body("Dirección eliminada con éxito");
 		} else {
 			return ResponseEntity
-					.status(HttpStatus.OK)
+					.status(HttpStatus.NOT_FOUND)
 					.body("No hay registros del tipo solicitado");
 		}
 	}

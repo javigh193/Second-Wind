@@ -59,6 +59,7 @@ export class ProductFormComponent {
         {
           next: (response) => {
             console.log(response)
+            this.productForm.reset();
           },
           error: (error) => {
             console.log(error);
@@ -66,6 +67,8 @@ export class ProductFormComponent {
           complete: () => {}
         }
       )
+    } else {
+      this.productForm.markAllAsTouched();
     }
   }
 }
